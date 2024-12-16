@@ -1,50 +1,19 @@
 ---
 // src/pages/admin/preview.astro
-
-import BlogPost from '~/layouts/PageLayout.astro'
-import Gallery from '~/components/Gallery.astro'
-import TableOfContents from '~/components/TableOfContents.astro'
-import { marked } from 'marked'
+import Layout from '~/layouts/PageLayout.astro';
 
 const { searchParams } = Astro.url
 const title = searchParams.get('title')
-const content = searchParams.get('content')
+const content = searchParams.get('content') || ''
 
-// Handle complex data types
-const gallery = searchParams.get('gallery') 
-  ? JSON.parse(decodeURIComponent(searchParams.get('gallery')))
-  : null
 
-const metadata = searchParams.get('metadata')
-  ? JSON.parse(decodeURIComponent(searchParams.get('metadata')))
-  : {}
-
-// Convert markdown to HTML
-const htmlContent = marked(content || '')
-
-// Generate table of contents
-const toc = generateToc(htmlContent)
 ---
 
-<BlogPost title={title} metadata={metadata}>
-  {toc && <TableOfContents toc={toc} />}
-  
-  <div class="prose lg:prose-xl mx-auto">
-    <div set:html={htmlContent} />
-  </div>
-
-  {gallery && <Gallery images={gallery} />}
-</BlogPost>
-
-<script>
-// Handle live updates from CMS
-window.addEventListener('message', (event) => {
-  if (event.data.type === 'preview-update') {
-    // Update content without full page reload
-    const content = document.querySelector('.prose')
-    if (content && event.data.html) {
-      content.innerHTML = event.data.html
-    }
-  }
-})
-</script>
+<Layout >
+  <section class="px-4 py-16 sm:px-6 mx-auto lg:px-8 lg:py-20 max-w-4xl">
+    <h1 class="text-4xl font-bold mb-8">{title}</h1>
+    <div class="prose prose-lg max-w-none">
+      <Fragment set:html={content} />
+    </div>
+  </section>
+</Layout>
