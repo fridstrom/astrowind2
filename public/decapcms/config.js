@@ -1,5 +1,5 @@
 // decapcms/config.js
-import CMS from 'decap-cms-app' // Add this import
+import CMS from 'decap-cms' // Add this import
 
 window.CMS.init({
   config: {
