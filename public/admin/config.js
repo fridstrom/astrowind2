@@ -41,11 +41,7 @@ CMS.registerPreviewTemplate('blog', ({ entry }) => {
   })
 
   return (
-    <iframe 
-      src={previewUrl.toString()}
-      id="preview-pane"
-      className="w-full h-screen border-0"
-    />
+    '<iframe  src={previewUrl.toString()} id="preview-pane" className="w-full h-screen border-0"/>'
   )
 })
 
