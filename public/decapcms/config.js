@@ -1,4 +1,4 @@
-// admin/config.js
+// decapcms/config.js
 import CMS from 'decap-cms-app'
 
 // Basic CMS configuration
@@ -28,7 +28,7 @@ CMS.init({
 
 // Register preview
 CMS.registerPreviewTemplate('blog', ({ entry }) => {
-  const previewUrl = new URL('/admin/preview', window.location.origin)
+  const previewUrl = new URL('/decapcms/preview', window.location.origin)
   const data = entry.get('data').toJS()
   
   // Add data to URL params
@@ -46,4 +46,4 @@ CMS.registerPreviewTemplate('blog', ({ entry }) => {
 })
 
 // Register preview styles (optional)
-CMS.registerPreviewStyle('/admin/preview.css')
+CMS.registerPreviewStyle('/decapcms/preview.css')
