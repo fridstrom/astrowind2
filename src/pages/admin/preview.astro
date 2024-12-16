@@ -1,0 +1,50 @@
+---
+// src/pages/admin/preview.astro
+
+import BlogPost from '~/layouts/PageLayout.astro'
+import Gallery from '~/components/Gallery.astro'
+import TableOfContents from '~/components/TableOfContents.astro'
+import { marked } from 'marked'
+
+const { searchParams } = Astro.url
+const title = searchParams.get('title')
+const content = searchParams.get('content')
+
+// Handle complex data types
+const gallery = searchParams.get('gallery') 
+  ? JSON.parse(decodeURIComponent(searchParams.get('gallery')))
+  : null
+
+const metadata = searchParams.get('metadata')
+  ? JSON.parse(decodeURIComponent(searchParams.get('metadata')))
+  : {}
+
+// Convert markdown to HTML
+const htmlContent = marked(content || '')
+
+// Generate table of contents
+const toc = generateToc(htmlContent)
+---
+
+<BlogPost title={title} metadata={metadata}>
+  {toc && <TableOfContents toc={toc} />}
+  
+  <div class="prose lg:prose-xl mx-auto">
+    <div set:html={htmlContent} />
+  </div>
+
+  {gallery && <Gallery images={gallery} />}
+</BlogPost>
+
+<script>
+// Handle live updates from CMS
+window.addEventListener('message', (event) => {
+  if (event.data.type === 'preview-update') {
+    // Update content without full page reload
+    const content = document.querySelector('.prose')
+    if (content && event.data.html) {
+      content.innerHTML = event.data.html
+    }
+  }
+})
+</script>
