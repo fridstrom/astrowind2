@@ -1,5 +1,5 @@
 // admin/preview-handler.js
-import CMS from 'decap-cms' // Add this import
+import CMS from 'decap-cms-app' // Add this import
 
 class PreviewHandler {
   constructor() {

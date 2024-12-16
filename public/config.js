@@ -1,5 +1,6 @@
 // decapcms/config.js
 //import CMS from 'decap-cms-app' // Add this import
+import "https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"
 
 window.CMS.init({
   config: {
