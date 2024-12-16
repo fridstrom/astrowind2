@@ -1,6 +1,6 @@
 site:
   name: AstroWind
-  site: 'https://astrowind.vercel.app'
+  site: 'https://astro22.netlify.app'
   base: '/'
   trailingSlash: false
 
